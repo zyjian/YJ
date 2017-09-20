@@ -22,9 +22,17 @@
         self.rightBtn.selected=YES;
     }else{//关闭
         self.rightBtn.selected=NO;
-
+        
     }
     [self showAnimateDown:self.rightBtn.selected];
+    
+    NSString *stateStr = dic[@"showRight"];
+    if([stateStr isEqualToString:@"1"]){
+        self.rightBtn.hidden = NO;
+    }else{
+        self.rightBtn.hidden = YES;
+    }
+
 }
 
 - (IBAction)pressBtn:(UIButton *)sender {

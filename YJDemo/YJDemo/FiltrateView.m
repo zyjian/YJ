@@ -52,6 +52,15 @@
     }
     mudic[@"data"]=arr;
     
+    //如果个数大于6个才显示右侧箭头
+    if(arr.count>6){
+        mudic[@"showRight"] = @"1";
+    }else{
+        mudic[@"showRight"] = @"0";
+    }
+
+    
+    
     for(int i=0;i<10;i++){
         [self.dataArray addObject:mudic];
     }
@@ -97,7 +106,8 @@
     return bgView;
 }
 -(void)pressReset{
-    self.dataArray = self.scrArray;
+    //ze
+    self.dataArray = [self.scrArray mutableCopy];
     [self.collectView reloadData];
 }
 -(void)pressSure{
@@ -165,12 +175,20 @@
     NSDictionary *item = muArr[indexPath.row];
     NSMutableDictionary *mudic = [NSMutableDictionary dictionaryWithDictionary:item];
     
+    //showRight
     if([mudic[@"showclose"] integerValue]==1){//已经选中的
-        musecDic = self.scrArray[indexPath.section];
-        
+        musecDic = [self.scrArray[indexPath.section] mutableCopy];
+        NSArray *arr = musecDic[@"data"];
+        if(arr.count>6){
+            musecDic[@"showRight"] = @"1";
+        }else{
+            musecDic[@"showRight"] = @"0";
+        }
     }else{
         mudic[@"showclose"]=@"1";
+        
         musecDic[@"data"] = @[mudic];
+        musecDic[@"showRight"]=@"0";
     }
     
     [self.dataArray replaceObjectAtIndex:indexPath.section withObject:musecDic];
